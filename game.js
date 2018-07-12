@@ -207,7 +207,6 @@ class Fireball extends Actor {
 
     act(time = 1, plan = new Level()) {
         const newPosition = this.getNextPosition(time);
-        // === undefined можно убраь
         if (plan.obstacleAt(newPosition, this.size) === undefined) {
             this.pos = newPosition;
         } else {
@@ -273,7 +272,6 @@ class Coin extends Actor {
 
 class Player extends Actor {
     constructor(pos = new Vector()) {
-        // тут можно использовать метод plus
         super(new Vector(pos.x, pos.y - 0.5), new Vector(0.8, 1.5), new Vector(0, 0));
     }
 
