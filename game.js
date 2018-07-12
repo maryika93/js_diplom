@@ -75,7 +75,9 @@ class Level{
         if (this.grid === []) {
             this.width = 0;
         } else {
-            this.width = Math.max.apply(null, this.grid) + map;
+            let len = this.grid.map(item => item.length);
+            let width = Math.max(...len);
+            this.width =  width > 0 ? width : 0;
         }
         this.status = null;
         this.finishDelay = 1;
@@ -289,3 +291,4 @@ loadLevels()
         return runGame(JSON.parse(schemas), parser, DOMDisplay);
     })
     .then(() => alert('Вы выиграли приз!'));
+     
