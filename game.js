@@ -1,10 +1,11 @@
 'use strict';
 
-class Vector{
+class Vector {
     constructor(x = 0, y = 0) {
         this.x = x;
         this.y = y;
     }
+
     plus(item) {
         if (!(item instanceof Vector)) {
             throw new Error("Можно прибавлять к вектору только вектор типа Vector");
@@ -13,58 +14,76 @@ class Vector{
         const y = item.y + this.y;
         return new Vector(x, y);
     }
+
     times(number) {
-        const x = this.x*number;
-        const y = this.y*number;
+        const x = this.x * number;
+        const y = this.y * number;
         return new Vector(x, y);
     }
 }
 
-class Actor{
+class Actor {
     constructor(pos = new Vector(0, 0), size = new Vector(1, 1), speed = new Vector(0, 0)) {
-        if (!(pos instanceof Vector) || !(size instanceof Vector) || !(speed instanceof Vector)){
+        if (!(pos instanceof Vector) || !(size instanceof Vector) || !(speed instanceof Vector)) {
             throw new Error("Можно передавать только вектор типа Vector");
         }
         this.pos = pos;
         this.size = size;
         this.speed = speed;
     }
-    act() {}
+
+    act() {
+    }
+
     get left() {
         return this.pos.x;
     }
+
     get top() {
         return this.pos.y;
     }
+
     get right() {
         return this.pos.x + this.size.x;
     }
+
     get bottom() {
         return this.pos.y + this.size.y;
     }
+
     get type() {
         return 'actor';
     }
+
     isIntersect(item) {
-        if (!(item  instanceof Actor)) {
+        if (!(item instanceof Actor)) {
             throw new Error("Можно передавать только объект типа Actor");
         }
         if (item === this) {
             return false;
         }
+<<<<<<< HEAD
+        return this.top < item.bottom && this.bottom > item.top && this.left < item.right && this.right > item.left;
+=======
         return this.top < item.bottom && this.bottom > item.top && this.left < item.right && this.right > item.left; 
+>>>>>>> 858d8c9daf20e8da0c51c97f2d456867e1486692
     }
 }
 
-class Level{
+class Level {
     constructor(grid = [], actors = []) {
         this.grid = grid.slice();
         this.actors = actors.slice();
         this.player = this.actors.find(el => el.type === 'player');
         this.height = this.grid.length;
         const len = this.grid.map(item => item.length);
+<<<<<<< HEAD
+        let width = Math.max(0, ...len);
+        this.width = width > 0 ? width : 0;
+=======
         let width = Math.max.apply(null, len);
         this.width =  width > 0 ? width : 0;
+>>>>>>> 858d8c9daf20e8da0c51c97f2d456867e1486692
         this.status = null;
         this.finishDelay = 1;
     }
@@ -79,10 +98,26 @@ class Level{
         }
         return this.actors.find(el => el.isIntersect(item));
     }
-    obstacleAt(pos, size){
-        if (!(pos instanceof Vector) || !(size instanceof Vector)){
+
+    obstacleAt(pos, size) {
+        if (!(pos instanceof Vector) || !(size instanceof Vector)) {
             throw new Error("Можно передавать только вектор типа Vector");
         }
+<<<<<<< HEAD
+        if (pos.y < 0 || pos.x < 0 || (pos.x + size.x) > this.width) {
+            return 'wall';
+        }
+        if ((pos.y + size.y) > this.height) {
+            return 'lava';
+        }
+        const top = Math.floor(pos.y);
+        const bottom = Math.ceil(pos.y + size.y);
+        const left = Math.floor(pos.x);
+        const right = Math.ceil(pos.x + size.x);
+        for (let i = top; i < bottom; i++) {
+            for (let j = left; j < right; j++) {
+                let gr = this.grid[i][j];
+=======
         if (pos.y < 0 || pos.x < 0 || (pos.x+size.x) > this.width) {
             return 'wall';
         }
@@ -96,32 +131,55 @@ class Level{
         for (let i = top; i < bottom; i++) {
             for (let j = left; j < right; j++) {
 				let gr = this.grid[i][j];
+>>>>>>> 858d8c9daf20e8da0c51c97f2d456867e1486692
                 if (gr) {
                     return gr;
                 }
             }
 		}
     }
+
     removeActor(item) {
         const index = this.actors.indexOf(item);
+<<<<<<< HEAD
+        if (index !== undefined) {
+            this.actors.splice(index, 1);
+        }
+=======
 		if(index !== undefined){
         this.actors.splice(index, 1);
 		}
+>>>>>>> 858d8c9daf20e8da0c51c97f2d456867e1486692
     }
+
     noMoreActors(item) {
+<<<<<<< HEAD
+        return !this.actors.some(actor => actor.type === item);
+=======
         return !(this.actors.some(actor => actor.type === item));
+>>>>>>> 858d8c9daf20e8da0c51c97f2d456867e1486692
     }
+
     playerTouched(objType, obj = {}) {
         if (objType === 'lava' || objType === 'fireball') {
             this.status = 'lost';
+<<<<<<< HEAD
+        }
+        if (objType === 'coin' && obj.type === 'coin') {
+=======
         } 
 		if (objType === 'coin' && obj.type === 'coin') {
+>>>>>>> 858d8c9daf20e8da0c51c97f2d456867e1486692
             this.removeActor(obj);
             if (this.noMoreActors('coin')) {
                 this.status = 'won';
             }
         }
+<<<<<<< HEAD
+        return this.status;
+=======
 		return this.status;
+>>>>>>> 858d8c9daf20e8da0c51c97f2d456867e1486692
     }
 }
 
@@ -129,6 +187,22 @@ class LevelParser {
     constructor(dictionary = {}) {
         this.dictionary = Object.assign({}, dictionary);
     }
+<<<<<<< HEAD
+
+    actorFromSymbol(sym) {
+        return this.dictionary[sym];
+    }
+
+    obstacleFromSymbol(sym) {
+        if (sym === 'x') {
+            return 'wall';
+        }
+        if (sym === '!') {
+            return 'lava';
+        }
+    }
+
+=======
     actorFromSymbol(sym){
 		return this.dictionary[sym];
     }
@@ -140,6 +214,7 @@ class LevelParser {
             return 'lava';
 		}
     }
+>>>>>>> 858d8c9daf20e8da0c51c97f2d456867e1486692
     createGrid(arrayStr = []) {
         return arrayStr.map((item) => {
             return item.split('').map((el) => {
@@ -147,6 +222,28 @@ class LevelParser {
             });
         });
     }
+<<<<<<< HEAD
+
+    createActors(arrayStr) {
+        return arrayStr.reduce((result, line, i) => {
+            line.split('').forEach((cell, j) => {
+                const item = this.actorFromSymbol(cell);
+                if (typeof item === 'function') {
+                    const newObj = new item(new Vector(j, i));
+                    if (newObj instanceof Actor) {
+                        result.push(newObj);
+                    }
+                }
+            })
+            return result;
+        }, [])
+    }
+
+    parse(arrayStr = []) {
+        const grid = this.createGrid(arrayStr);
+        const obj = this.createActors(arrayStr);
+        return (new Level(grid, obj));
+=======
 		
 
 	createActors(arrayStr) {
@@ -163,6 +260,7 @@ class LevelParser {
         const grid = this.createGrid(arrayStr);
         const obj = this.createActors(arrayStr);
         return(new Level(grid, obj));
+>>>>>>> 858d8c9daf20e8da0c51c97f2d456867e1486692
     }
 }
 
@@ -272,4 +370,8 @@ loadLevels()
     .then(schemas => {
         return runGame(JSON.parse(schemas), parser, DOMDisplay);
     })
+<<<<<<< HEAD
     .then(() => alert('Вы выиграли приз!'));
+=======
+    .then(() => alert('Вы выиграли приз!'));
+>>>>>>> 858d8c9daf20e8da0c51c97f2d456867e1486692
