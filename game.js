@@ -242,7 +242,7 @@ class Coin extends Actor {
         this.startPos = new Vector(pos.x + 0.2, pos.y + 0.1);
         this.springSpeed = 8;
         this.springDist = 0.07;
-        this.spring = Math.random() * (2 * Math.PI - 0) + 0;
+        this.spring = Math.random() * (2 * Math.PI);
     }
 
     get type() {
