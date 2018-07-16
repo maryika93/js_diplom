@@ -73,8 +73,7 @@ class Level {
         this.player = this.actors.find(el => el.type === 'player');
         this.height = this.grid.length;
         const len = this.grid.map(item => item.length);
-        let width = Math.max(0, ...len);
-        this.width = width > 0 ? width : 0;
+        this.width = Math.max(0, ...len);
         this.status = null;
         this.finishDelay = 1;
     }
@@ -106,9 +105,9 @@ class Level {
         const right = Math.ceil(pos.x + size.x);
         for (let i = top; i < bottom; i++) {
             for (let j = left; j < right; j++) {
-                let gr = this.grid[i][j];
-                if (gr) {
-                    return gr;
+                const grid = this.grid[i][j];
+                if (grid) {
+                    return grid;
                 }
             }
         }
@@ -135,7 +134,6 @@ class Level {
                 this.status = 'won';
             }
         }
-        return this.status;
     }
 }
 
