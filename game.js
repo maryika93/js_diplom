@@ -105,9 +105,9 @@ class Level {
         const right = Math.ceil(pos.x + size.x);
         for (let i = top; i < bottom; i++) {
             for (let j = left; j < right; j++) {
-                const grid = this.grid[i][j];
-                if (grid) {
-                    return grid;
+                const cell = this.grid[i][j];
+                if (cell) {
+                    return cell;
                 }
             }
         }
@@ -220,8 +220,9 @@ class HorizontalFireball extends Fireball {
 }
 
 class VerticalFireball extends Fireball {
-    constructor(pos = new Vector()) {
-        super(pos, new Vector(0, 2), new Vector(1, 1));
+    constructor(pos = new Vector(0, 0)) {
+        super(pos, new Vector(0, 2));
+		this.size = new Vector(1, 1);
     }
 }
 
@@ -237,7 +238,7 @@ class FireRain extends Fireball {
 }
 
 class Coin extends Actor {
-    constructor(pos = new Vector(0, 0), size = new Vector(1, 1), speed = new Vector(0, 0)) {
+    constructor(pos = new Vector(0, 0)) {
         super(new Vector(pos.x + 0.2, pos.y + 0.1), new Vector(0.6, 0.6));
         this.startPos = new Vector(pos.x + 0.2, pos.y + 0.1);
         this.springSpeed = 8;
