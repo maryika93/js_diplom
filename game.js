@@ -215,14 +215,12 @@ class Fireball extends Actor {
 class HorizontalFireball extends Fireball {
     constructor(pos = new Vector(0, 0)) {
         super(pos, new Vector(2, 0));
-        this.size = new Vector(1, 1);
     }
 }
 
 class VerticalFireball extends Fireball {
     constructor(pos = new Vector(0, 0)) {
         super(pos, new Vector(0, 2));
-		this.size = new Vector(1, 1);
     }
 }
 
