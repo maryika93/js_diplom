@@ -215,12 +215,14 @@ class Fireball extends Actor {
 class HorizontalFireball extends Fireball {
     constructor(pos = new Vector(0, 0)) {
         super(pos, new Vector(2, 0));
+        this.size = new Vector(1, 1);
     }
 }
 
 class VerticalFireball extends Fireball {
     constructor(pos = new Vector(0, 0)) {
         super(pos, new Vector(0, 2));
+		this.size = new Vector(1, 1);
     }
 }
 
@@ -237,7 +239,7 @@ class FireRain extends Fireball {
 
 class Coin extends Actor {
     constructor(pos = new Vector(0, 0)) {
-        super(new Vector(pos.x + 0.2, pos.y + 0.1), new Vector(0.6, 0.6));
+        super(pos.plus(new Vector(0.2, 0.1)), new Vector(0.6, 0.6), new Vector(0, 0));
         this.startPos = new Vector(pos.x + 0.2, pos.y + 0.1);
         this.springSpeed = 8;
         this.springDist = 0.07;
@@ -269,7 +271,7 @@ class Coin extends Actor {
 
 class Player extends Actor {
     constructor(pos = new Vector(0, 0)) {
-        super(pos = pos.plus(new Vector(0, -0.5)), new Vector(0.8, 1.5), new Vector(0, 0));
+        super(pos.plus(new Vector(0, -0.5)), new Vector(0.8, 1.5), new Vector(0, 0));
     }
 
     get type() {
