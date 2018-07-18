@@ -93,16 +93,16 @@ class Level {
         if (!(pos instanceof Vector) || !(size instanceof Vector)) {
             throw new Error("Можно передавать только вектор типа Vector");
         }
-        if (pos.y < 0 || pos.x < 0 || (pos.x + size.x) > this.width) {
-            return 'wall';
-        }
-        if ((pos.y + size.y) > this.height) {
-            return 'lava';
-        }
         const top = Math.floor(pos.y);
         const bottom = Math.ceil(pos.y + size.y);
         const left = Math.floor(pos.x);
         const right = Math.ceil(pos.x + size.x);
+        if (pos.y < 0 || pos.x < 0 || right > this.width) {
+            return 'wall';
+        }
+        if (bottom > this.height) {
+            return 'lava';
+        }
         for (let i = top; i < bottom; i++) {
             for (let j = left; j < right; j++) {
                 const cell = this.grid[i][j];
@@ -234,7 +234,7 @@ class FireRain extends Fireball {
 class Coin extends Actor {
     constructor(pos = new Vector(0, 0)) {
         super(pos.plus(new Vector(0.2, 0.1)), new Vector(0.6, 0.6), new Vector(0, 0));
-        this.startPos = new Vector(pos.x + 0.2, pos.y + 0.1);
+        this.startPos = pos.plus(new Vector(0.2, 0.1));
         this.springSpeed = 8;
         this.springDist = 0.07;
         this.spring = Math.random() * (2 * Math.PI);
