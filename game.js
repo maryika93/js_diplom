@@ -97,7 +97,7 @@ class Level {
         const bottom = Math.ceil(pos.y + size.y);
         const left = Math.floor(pos.x);
         const right = Math.ceil(pos.x + size.x);
-        if (pos.y < 0 || pos.x < 0 || right > this.width) {
+        if (top < 0 || left < 0 || right > this.width) {
             return 'wall';
         }
         if (bottom > this.height) {
